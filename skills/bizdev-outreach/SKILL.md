@@ -14,6 +14,22 @@ description: >
 
 Do not proceed with research or drafting until user-context.md has been fully configured.
 
+### Connector Check
+
+After confirming user-context.md is configured, check which connectors are actually available before starting research:
+
+1. **Check for email tools** (e.g., `gmail_search_messages`, `gmail_read_message`, or Outlook equivalents)
+2. **Check for CRM tools** (e.g., `search_crm_objects`, `get_crm_objects`, or Salesforce/Pipedrive/Close equivalents)
+3. **Check for chat tools** (e.g., `slack_read_canvas`, `slack_search_public`, or Teams/Discord equivalents)
+
+**If email AND CRM are both missing**, warn the user before proceeding:
+> "I can draft outreach based on web research, but connecting your email and CRM will make it much more personalized. Run /setup to see how to connect them."
+
+**If only some connectors are missing**, note it but proceed normally:
+> "Note: [missing connector] isn't connected — I'll skip that data source and work with what's available."
+
+Do not block on missing connectors — inform the user and adapt. During Phase 1 (Research), skip any search steps for connectors that are not available and note the gap in the relationship brief.
+
 ---
 
 ## Your Role

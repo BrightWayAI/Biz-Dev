@@ -17,13 +17,34 @@ Ask the following questions in order, one at a time. Use AskUserQuestion for eac
 ### Question 1 — Company Name
 "Let's get your outreach profile set up! First — what's your company name?"
 
+### Question 1b — Company Website
+"What's your company's website? I'll pull what I can from it to pre-fill some of these answers."
+
+### Auto-Research (Not a Question — Do This Automatically)
+
+Once the user provides their company website, perform the following research before continuing to Question 2:
+
+1. **Use WebFetch** to read the company website's homepage and about page (try both `/` and `/about` or `/about-us` paths).
+2. **Use WebSearch** to search for recent news and context about the company (e.g., "[company name] recent news", "[company name] products").
+3. Based on what you find, **pre-fill draft answers** for:
+   - Positioning statement (Question 2)
+   - Products/services (Question 3)
+   - Target market (Question 4)
+4. For each subsequent question, **present your draft to the user** so they can confirm, edit, or override rather than writing from scratch.
+
+For example, Question 2 becomes: "Based on your website, it looks like your positioning might be: '[draft]'. Does that sound right, or would you phrase it differently?"
+
+If the website is unreachable or doesn't have enough information, fall back to asking the questions normally without drafts.
+
 ### Question 2 — Positioning Statement
 "Got it. Now give me a one-sentence positioning statement — the 'We help [who] do [what] by [how]' version. Don't overthink it — we can always update this later."
 
+(If auto-research produced a draft, present it: "Based on your website, it looks like your positioning might be: '[draft]'. Does that sound right, or would you phrase it differently?")
+
 ### Question 3 — Products or Services
 "What are your key products or services? Give me 2-5, each with a name and a one-line description. For example:
-- **Beacon**: AI-powered drafting for proposals and RFPs
-- **Prism**: SaaS spend tracker that auto-detects invoices"
+- **Acme Analytics**: Dashboard platform for marketing teams
+- **Acme Connect**: Integration middleware for enterprise data pipelines"
 
 ### Question 4 — Target Market
 "Who's your ideal customer? Describe your target market or ideal customer profile in a few sentences."
@@ -68,6 +89,8 @@ Use this format:
 
 **Name:** [their answer]
 
+**Website:** [their answer]
+
 **Positioning Statement:** [their answer]
 
 **Products / Services:**
@@ -110,11 +133,38 @@ Use this format:
 
 After writing the file, tell the user:
 
-"You're all set! Your outreach profile has been saved. Here's a summary of what I captured:
+"Your outreach profile has been saved. Here's a summary of what I captured:
 
 - **Company:** [name] — [positioning]
 - **Default tone:** [tone]
 - **Value-adds:** [count] approaches configured
 - **Custom bans:** [count or 'none']
 
-You can run `/setup` again anytime to update any of this. Now try reaching out to someone — just say a contact's name and I'll handle the rest."
+Now let me check your tool connections..."
+
+## Step 4: Connect Your Tools
+
+Check which MCP tools are available in the current environment and report the status of each connector category:
+
+### Email
+Check for email tools (look for tools like `gmail_search_messages`, `gmail_read_message`, `gmail_read_thread`, or Outlook equivalents).
+- **If found:** Report it — e.g., "Email: Gmail connected"
+- **If not found:** Tell the user: "I don't see an email connector (Gmail or Outlook) set up. To get the most out of this plugin, you'll want to connect one. You can add a Gmail or Outlook MCP server in your Claude Code settings or Cowork workspace."
+
+### CRM
+Check for CRM tools (look for tools like `search_crm_objects`, `get_crm_objects`, `manage_crm_objects`, or Salesforce/Pipedrive/Close equivalents).
+- **If found:** Report it — e.g., "CRM: HubSpot connected"
+- **If not found:** Tell the user: "I don't see a CRM connector (HubSpot, Salesforce, Pipedrive, or Close) set up. Adding one lets the plugin check your pipeline and contact records automatically."
+
+### Chat
+Check for chat tools (look for tools like `slack_read_canvas`, `slack_search_public`, or Microsoft Teams/Discord equivalents).
+- **If found:** Report it — e.g., "Chat: Slack connected"
+- **If not found:** Tell the user: "I don't see a chat connector (Slack, Microsoft Teams, or Discord) set up. This is optional — it's used to check your weekly outreach canvas for holding patterns."
+
+### Wrap-Up
+
+End the connector check with:
+
+"The plugin works best with all three connectors, but email + CRM covers most use cases. You can add connectors anytime through your MCP server settings.
+
+You're all set! Run `/setup` again anytime to update your profile or recheck connectors. Now try reaching out to someone — just say a contact's name and I'll handle the rest."

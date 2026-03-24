@@ -1,6 +1,6 @@
 # BizDev Outreach Plugin
 
-A Claude Code plugin that researches contacts across your email, CRM, and the web, then drafts personalized business development communications using a proven three-phase methodology.
+A Claude Code plugin (compatible with Cowork) that researches contacts across your email, CRM, and the web, then drafts personalized business development communications using a proven three-phase methodology.
 
 ## What It Does
 
@@ -16,7 +16,15 @@ It handles seven communication types: cold outreach, warm introduction follow-up
 
 ### 1. Install the Plugin
 
-Add the plugin to your Claude Code environment via Cowork or by placing the plugin directory in your project.
+#### From Cowork Marketplace
+Search for "bizdev-outreach" in the Cowork plugin marketplace and click Install.
+
+#### Manual Installation
+Clone this repo into your project's plugins directory, or add it as a git submodule:
+
+```bash
+git clone https://github.com/BrightWayAI/Biz-Dev.git bizdev-outreach-plugin
+```
 
 ### 2. Configure Connectors
 

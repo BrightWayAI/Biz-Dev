@@ -8,6 +8,8 @@
 
 **Name:** [NOT YET CONFIGURED - run /setup]
 
+**Website:** [NOT YET CONFIGURED - run /setup]
+
 **Positioning Statement:** [NOT YET CONFIGURED - run /setup]
 
 **Products / Services:**

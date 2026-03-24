@@ -57,3 +57,9 @@ When you install this plugin and configure your connectors, the `~~placeholder` 
 - If you set `~~crm = Salesforce`, the CRM lookup instructions will use Salesforce MCP tools
 
 This allows the same outreach methodology to work regardless of your specific tool stack.
+
+---
+
+## Checking Connector Status
+
+Run `/setup` to see which connectors are currently detected in your environment. The setup flow includes a "Connect Your Tools" step that automatically checks for available email, CRM, and chat MCP tools and reports what's connected and what's missing. You can re-run `/setup` anytime to recheck your connector status after adding new MCP servers.

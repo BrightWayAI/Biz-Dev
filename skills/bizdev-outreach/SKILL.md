@@ -48,38 +48,48 @@ Output the relationship brief and draft together in a single response.
 
 ---
 
-## Phase 1: Research
+## Phase 1: Research — delegate to contact-researcher
 
-Search across all available systems to build a relationship profile. Run these searches in parallel where possible.
+The heavy-lift research (CRM lookup + email scan + web search + recent activity) lives in the `contact-researcher` subagent, which ships with the `lead-engine` plugin. Delegating keeps this skill's context clean and gives a consistent dossier shape across every outreach.
 
-### ~~email Search
-Search the user's email for correspondence with the contact:
-- Search by name and email address if known
-- Look at: frequency of emails, date of last contact, topics discussed, tone and style of their messages, any asks or commitments made, any attachments or links shared
-- Pay close attention to **how the contact writes** — their greeting style, sign-off, level of formality, use of humor. You will mirror this in the draft.
+**Use the Task tool with `subagent_type="contact-researcher"`.** Pass a self-contained brief that includes:
 
-### ~~crm Search
-Check the CRM for the contact and their company:
-- Contact record: name, title, company, email, phone, any notes
-- Company record: industry, size, recent activity
-- Deal pipeline: stage, value, last activity, associated notes
-- Any logged calls, meetings, or tasks
+- **Contact name** (and email if known)
+- **Company name** (if known)
+- **Purpose** — pick the closest: `outreach`, `re-engage`, `referral-request`, `congratulatory-touch`, `post-meeting`, `cold-first`, `warm-introduction-follow-up`
+- **Time horizon** — default 90 days; widen to 180 if the user said the relationship is dormant
 
-### Web Research
-Search the web for recent context:
-- Their company's recent news, funding, product launches, leadership changes
-- The contact's recent LinkedIn activity or published content (if findable via web search)
-- Industry trends relevant to their organization
-- Any recent developments at their org related to the user's domain (read the user's target market from references/user-context.md to focus the search)
+The agent returns a structured dossier:
 
-### What to Capture
+- **Contact Snapshot** — CRM record, current role, location
+- **Relationship History** — last email (with direction), last meeting, open deals/tasks, cumulative touches in window
+- **Recent Public Signals** — job changes, funding/press, LinkedIn activity (last 90d)
+- **Three Talking Points** — signal-tied seeds (these are *seeds* — Phase 3 will draft the actual message)
+- **Suggested Next Step** — the agent's read on what to do
+- **Confidence & Gaps** — what was missing, any flags (e.g., "CRM record stale," "no Gmail connector")
 
-Build a mental model of:
-- **Relationship temperature**: Cold (never met), Warm (introduced/met briefly), Active (ongoing conversation), Dormant (haven't connected in a while)
-- **Last touchpoint**: When, what channel, what was discussed, any open threads
-- **Their world right now**: What's happening at their org that's relevant
-- **Tone fingerprint**: How they communicate (formal vs casual, brief vs detailed, uses humor or not)
-- **Potential value-adds**: What could the user offer that would be genuinely useful to them right now (reference the user's configured value-add approaches from references/user-context.md)
+### How to use the dossier
+
+- **Read every section before drafting.** The dossier is what the prior inline research used to produce — don't redo that work.
+- **Tone fingerprint** — the dossier doesn't capture tone directly; if Relationship History shows recent email exchanges, briefly read 1-2 of those threads to nail the contact's voice (greeting style, formality, humor). For cold contacts, use the user's preferred tone from `references/user-context.md`.
+- **Relationship temperature** — infer from the dossier:
+  - No CRM record + no email history → **Cold**
+  - Some history but >60 days old → **Dormant**
+  - Recent two-way exchange → **Active**
+  - Sparse history with a referral or shared event → **Warm**
+- **Honor the agent's "Suggested Next Step."** If the agent says "Skip — no signal" with Low confidence, surface that to the user before drafting (see Phase 2's "Should we even send something?" check).
+
+### If the dossier is thin
+
+If Confidence is Low *and* multiple sections say "No data," ask the user for additional context (where they met, what company, what prompted the outreach) before drafting. Don't pad with generic content.
+
+### If contact-researcher is not available
+
+If the agent isn't registered in this Claude session, tell the user:
+
+> "This plugin's research step delegates to the `contact-researcher` subagent (from the lead-engine plugin). Install lead-engine via the BrightWayAI marketplace, then rerun. Or, if you want, paste any context you have about this contact and I'll work with that."
+
+If the user pastes context manually, proceed to Phase 2 with what they provided.
 
 ---
 

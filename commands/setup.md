@@ -10,6 +10,28 @@ You are running the onboarding flow for the BizDev Outreach plugin. Your job is 
 
 **Important:** Ask ONE question at a time. Wait for each answer before asking the next. Be conversational — this should feel like a quick intake call, not a form.
 
+## Pre-step: Check shared identity
+
+Before asking the questions below, check whether `~/Documents/Claude/identity.md` exists. This is a shared identity file populated by cortex's `/setup-identity` command — every BrightWayAI marketplace plugin reads it.
+
+- **If it exists and is populated:** read it. Use the values to pre-fill Question 1 (Company Name), Question 1b (Website), and any role/identity follow-ups. Skip those questions; just confirm what you read. The auto-research step still runs so the rest of the interview benefits from fresh website context.
+- **If it doesn't exist:** mention to the user:
+  > "Heads up — there's a shared identity file (`/setup-identity` in cortex) that other plugins read too, so you don't have to answer name/company/role across multiple plugin setups. Want to run `/setup-identity` first (recommended, ~2 min), or proceed with this setup inline?"
+  - If user picks "/setup-identity first," route there, then return.
+  - If "inline," proceed.
+
+## Pre-step 2: Check shared voice
+
+After identity, check whether `~/Documents/Claude/voice.md` exists. This is a shared writing-voice file populated by cortex's `/setup-voice` command — used by every drafting plugin (bizdev-outreach, weekly-outreach, lead-engine, news-curator) so voice stays consistent.
+
+- **If it exists and is populated:** read it. Use those values to pre-fill voice-related questions in this interview (banned phrases, tone descriptors, sign-off). Skip those questions; just confirm.
+- **If it doesn't exist:** offer:
+  > "Want to capture your writing voice once via `/setup-voice` (in cortex)? It saves to a shared file that every drafting plugin reads — your voice stays consistent and you only update it in one place. Or proceed inline here?"
+  - If "/setup-voice first" → route there, then resume.
+  - If "inline" → proceed.
+
+---
+
 ## Step 1: Collect Information
 
 Ask the following questions in order, one at a time. Use AskUserQuestion for each.

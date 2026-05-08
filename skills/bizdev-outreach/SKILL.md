@@ -68,6 +68,16 @@ The agent returns a structured dossier:
 - **Suggested Next Step** — the agent's read on what to do
 - **Confidence & Gaps** — what was missing, any flags (e.g., "CRM record stale," "no Gmail connector")
 
+### Confidence check before drafting
+
+**Read the dossier's `Confidence & Gaps` section first.** If the agent returned `Confidence: Low` AND key sections (Contact Snapshot, Relationship History, Recent Public Signals) are sparse or empty, pause and ask the user:
+
+> "Heads up — `contact-researcher` came back Low confidence: [the specific gap, e.g., 'No CRM record and only 1 thin email thread']. Before I draft, want to give me any context you have on [contact name]? Where you met, what they care about, what's prompting this outreach — even one sentence helps. Or 'proceed' and I'll draft with what we have, but it'll be thinner."
+
+If the user provides context, weave it into Phase 2 + Phase 3. If they say "proceed," do so but note in the final output that confidence was low.
+
+If `Confidence: Medium` with sparse sections, surface gaps as a bullet at the end of Phase 2's reasoning, but don't pause — proceed with the draft.
+
 ### How to use the dossier
 
 - **Read every section before drafting.** The dossier is what the prior inline research used to produce — don't redo that work.

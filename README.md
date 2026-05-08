@@ -75,6 +75,16 @@ The core methodology is opinionated and battle-tested:
 - **Strict writing rules** — Bans generic phrases ("just checking in", "circling back"), enforces conciseness, requires value-first framing
 - **Communication type taxonomy** — Seven distinct outreach types with specific guidelines for each
 
+## Companion plugins
+
+The plugin works on its own, but pairs naturally with others in the [BrightWay AI marketplace](https://github.com/BrightWayAI/claude-plugins):
+
+- **[lead-engine](https://github.com/BrightWayAI/lead-engine)** — provides the `contact-researcher` subagent. When installed, the bizdev-outreach Phase 1 (research) delegates to that agent instead of doing inline CRM/email/web pulls. Cleaner conversation context and a more consistent dossier shape.
+- **[claude-cortex](https://github.com/BrightWayAI/claude-cortex)** — when installed, prior context about the contact (gotchas, prior commitments, relationship history) auto-surfaces during drafting.
+- **[weekly-outreach](https://github.com/BrightWayAI/weekly-outreach)** — for batched weekly BD prep. bizdev-outreach is for ad-hoc per-contact drafting; weekly-outreach is for the full weekly queue.
+
+Without these, the plugin runs inline research using whatever connectors you have. With them, it's faster and the output is sharper.
+
 ## Customizing Later
 
 Run `/setup` again anytime to update your profile. You can also directly edit `skills/bizdev-outreach/references/user-context.md` if you prefer.

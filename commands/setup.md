@@ -33,8 +33,6 @@ Once the user provides the path:
 2. Create `<path>/plugins/` if it doesn't exist.
 3. Write the absolute path to `~/.claude-plugin-config-root`.
 4. Confirm: "Saved. All marketplace plugin configs will live under `<path>` from now on."
-5. **Migration**: if `~/Documents/Claude/identity.md` or `~/Documents/Claude/voice.md` exists and `<path>` is *not* `~/Documents/Claude/`, ask: "Migrate existing identity.md / voice.md into `<path>`? (Y/N)" — if yes, copy.
-6. **Pre-staged content**: if any `~/Documents/Claude/plugin-configs/*.user-context.md` files exist, offer to copy them into `<path>/plugins/`.
 
 ### C — Read shared identity
 

@@ -284,6 +284,24 @@ Only include company context when it adds value to the conversation — never fo
 
 ---
 
+## Person-page side effect (cortex v4.2+)
+
+After the user approves a draft (or after you produce one for review), if cortex is installed and the contact has a graduated page at `<config-root>/memory/person/<slug>.md`:
+
+1. Open the page.
+2. Append a new line to **## Recent interactions**:
+   `<today> — outreach-draft — <one-line: channel + topic + tone>`
+   (Don't double-add if an identical line already exists for today.)
+3. Update **## Relationship**'s "Last meaningful contact" to today, type: `outreach-draft`.
+4. Update **Relationship temperature** if the draft crosses a threshold (e.g., Cold → Warm on first proactive outreach).
+5. Do NOT touch ## Identity, ## Notes, or ## Linked entities — those are user-curated or set by `contact-researcher`.
+
+If no page exists for this contact, do nothing. Person-page creation is gated by cortex's graduation triggers (dossier from `contact-researcher`, 3+ recalls, project-setup primary contact, etc.) — this plugin only updates pages that already exist.
+
+If cortex isn't installed at all (`<config-root>/memory/` missing), skip silently.
+
+---
+
 ## Edge Cases
 
 - **No information found anywhere**: Tell the user what you searched and that you came up empty. Ask for any additional context they can provide (where they met, what company, etc.) before drafting.

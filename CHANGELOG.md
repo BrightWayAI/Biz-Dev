@@ -4,6 +4,15 @@ All notable changes to bizdev-outreach are documented here.
 
 Format follows [Keep a Changelog](https://keepachangelog.com/). Versions match `plugin.json`.
 
+## [0.2.4] — Person-page side effect (2026-05-12)
+
+### Added
+- **Person-page Recent-interactions append.** After drafting outreach, the bizdev-outreach skill now appends a `<today> — outreach-draft — <channel + topic + tone>` line to the contact's cortex person page if one exists at `<config-root>/memory/person/<slug>.md`. Also updates Last meaningful contact + Relationship temperature. Identity, Notes, and Linked entities stay user-curated and untouched.
+- **Graceful degradation.** No-op if cortex isn't installed or the contact has no graduated page. Page graduation is owned by cortex `/remember`, `contact-researcher`, and `project-setup` — this plugin only updates pages that already exist.
+
+### Why this matters
+Phase 3 of SECOND-BRAIN-V2-SPEC. Person pages give cortex a canonical view of contacts the user interacts with deliberately. Without this side effect, bizdev-outreach actions would silently drop out of the relationship history visible on person pages.
+
 ## [0.2.3] — Platform-agnostic Step 0 (2026-05-12)
 
 ### Changed

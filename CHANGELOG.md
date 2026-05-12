@@ -4,12 +4,17 @@ All notable changes to bizdev-outreach are documented here.
 
 Format follows [Keep a Changelog](https://keepachangelog.com/). Versions match `plugin.json`.
 
-## [Unreleased]
+## [0.2.0] — Config-root refactor + delegation features
 
-### Changed
+### Changed (config-root refactor)
+- **Plugin config moved to a user-chosen folder.** Reads and writes now go to `<config-root>/plugins/bizdev-outreach.user-context.md`, where `<config-root>` is the folder the user chooses on first plugin setup (recorded at `~/.claude-plugin-config-root`). The old `${CLAUDE_PLUGIN_ROOT}/skills/bizdev-outreach/references/user-context.md` path failed silently under Cowork's read-only mount.
+- **`/setup` gets Step 0** — resolves the config root via the pointer; prompts for it on first run; reads shared identity and voice; offers to migrate legacy `~/Documents/Claude/identity.md` / `voice.md` and any pre-staged plugin configs.
+- **Operating skill updated** — `skills/bizdev-outreach/SKILL.md` reads from the new path.
+- **User-facing prompts and skill descriptions debranded** for fork-friendliness.
+
+### Changed (previously in-flight)
 - Phase 1 (Research) now delegates to the `contact-researcher` subagent (in `lead-engine`) instead of doing inline CRM/email/web pulls. Cleaner conversation context; consistent dossier shape. Falls back to inline research if `lead-engine` isn't installed.
 - Confidence-aware delegation: pauses on Low confidence and asks the user for context before drafting, rather than producing thin output silently.
-- Setup reads `~/Documents/Claude/identity.md` and `~/Documents/Claude/voice.md` (shared config from cortex) when available; skips identity/voice questions in the interview.
 
 ## [0.1.0] — Initial release
 

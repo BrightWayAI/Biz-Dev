@@ -8,7 +8,7 @@ description: >
 
 ## First-Run Check
 
-**Before doing anything else**, check if `${CLAUDE_PLUGIN_ROOT}/skills/bizdev-outreach/references/user-context.md` exists and has been filled in. Read the file and look for the marker `[NOT YET CONFIGURED - run /setup]`. If the file is missing, empty, or still contains that marker in any section, stop and tell the user:
+**Before doing anything else**, check if `<config-root>/plugins/bizdev-outreach.user-context.md` exists and has been filled in. Read the file and look for the marker `[NOT YET CONFIGURED - run /setup]`. If the file is missing, empty, or still contains that marker in any section, stop and tell the user:
 
 > "This plugin needs to know about you before it can draft outreach. Run `/setup` to configure your company, background, and preferences — it takes about 2 minutes."
 
@@ -34,7 +34,7 @@ Do not block on missing connectors — inform the user and adapt. During Phase 1
 
 ## Your Role
 
-Read the user's company context from `${CLAUDE_PLUGIN_ROOT}/skills/bizdev-outreach/references/user-context.md` and use their positioning, products, background, and preferences throughout this skill. You are the user's business development research assistant. Your job is to research a contact across all available systems, build a relationship intelligence brief, recommend the right type of outreach, and draft a message that sounds like the user wrote it.
+Read the user's company context from `<config-root>/plugins/bizdev-outreach.user-context.md` and use their positioning, products, background, and preferences throughout this skill. You are the user's business development research assistant. Your job is to research a contact across all available systems, build a relationship intelligence brief, recommend the right type of outreach, and draft a message that sounds like the user wrote it.
 
 ## How This Skill Works
 
@@ -81,7 +81,7 @@ If `Confidence: Medium` with sparse sections, surface gaps as a bullet at the en
 ### How to use the dossier
 
 - **Read every section before drafting.** The dossier is what the prior inline research used to produce — don't redo that work.
-- **Tone fingerprint** — the dossier doesn't capture tone directly; if Relationship History shows recent email exchanges, briefly read 1-2 of those threads to nail the contact's voice (greeting style, formality, humor). For cold contacts, use the user's preferred tone from `references/user-context.md`.
+- **Tone fingerprint** — the dossier doesn't capture tone directly; if Relationship History shows recent email exchanges, briefly read 1-2 of those threads to nail the contact's voice (greeting style, formality, humor). For cold contacts, use the user's preferred tone from `<config-root>/plugins/bizdev-outreach.user-context.md`.
 - **Relationship temperature** — infer from the dossier:
   - No CRM record + no email history → **Cold**
   - Some history but >60 days old → **Dormant**
@@ -97,7 +97,7 @@ If Confidence is Low *and* multiple sections say "No data," ask the user for add
 
 If the agent isn't registered in this Claude session, tell the user:
 
-> "This plugin's research step delegates to the `contact-researcher` subagent (from the lead-engine plugin). Install lead-engine via the BrightWayAI marketplace, then rerun. Or, if you want, paste any context you have about this contact and I'll work with that."
+> "This plugin's research step delegates to the `contact-researcher` subagent (from the lead-engine plugin). Install lead-engine via this marketplace, then rerun. Or, if you want, paste any context you have about this contact and I'll work with that."
 
 If the user pastes context manually, proceed to Phase 2 with what they provided.
 
@@ -172,7 +172,7 @@ Apply this logic:
 
 Follow this adaptive tone framework:
 - **If prior correspondence exists**: Mirror the contact's communication style. Match their level of formality, greeting style, message length, and energy. If they write "Hey [Name]!" you write "Hey [Name]!" — if they write "Dear Mr. [Name]" you adjust accordingly.
-- **If cold/no correspondence**: Default to the user's preferred tone as configured in references/user-context.md. Use that as the baseline voice.
+- **If cold/no correspondence**: Default to the user's preferred tone as configured in <config-root>/plugins/bizdev-outreach.user-context.md. Use that as the baseline voice.
 - **Universal rule**: Never salesy. Never corporate jargon. The messages should feel like they come from someone who genuinely wants to help — because they do.
 
 ---
@@ -232,7 +232,7 @@ Good: "Saw [Company] just launched [X] — that's a smart move given [trend]. Re
 - "Let me know if you have any questions" -> Ask a specific question instead
 - "Any luck with [thing they committed to]?" -> This is "just checking in" wearing a costume. If they said they'd do something, trust them to do it — or wait for a trigger to re-engage naturally.
 
-Also check references/user-context.md for any additional user-configured banned phrases and enforce those as well.
+Also check <config-root>/plugins/bizdev-outreach.user-context.md for any additional user-configured banned phrases and enforce those as well.
 
 **3. Don't introduce new angles mid-thread.**
 If the conversation was about Topic A, don't follow up by pitching Topic B. It feels like moving goalposts and can erode trust. Stick to the thread's existing context, or wait for a natural moment to introduce something new in a separate conversation.
@@ -260,7 +260,7 @@ Make it specific and low-friction:
 
 When drafting re-engagements or warm outreach, draw from two sources:
 
-**1. User's configured value-adds** — Read the Value-Add Approaches section from references/user-context.md. These are the user's go-to moves. Prioritize these when they fit the contact's situation.
+**1. User's configured value-adds** — Read the Value-Add Approaches section from <config-root>/plugins/bizdev-outreach.user-context.md. These are the user's go-to moves. Prioritize these when they fit the contact's situation.
 
 **2. Structural framework** — Use these categories as a checklist to identify the best angle, even if the user didn't explicitly list them:
 - **Relevant article or industry insight** — Share a specific piece of content with a sentence on why it matters for their org
@@ -273,7 +273,7 @@ When drafting re-engagements or warm outreach, draw from two sources:
 
 ### Company & User Context
 
-When relevant, weave in the user's company positioning naturally (never as a pitch). Read references/user-context.md for:
+When relevant, weave in the user's company positioning naturally (never as a pitch). Read <config-root>/plugins/bizdev-outreach.user-context.md for:
 
 - **Positioning statement** — Use this to frame the user's perspective and credibility
 - **Products/services** — Reference only when contextually relevant to the contact's situation. Don't shotgun the full portfolio — match the specificity to their actual needs.

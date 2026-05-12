@@ -10,25 +10,47 @@ You are running the onboarding flow for the BizDev Outreach plugin. Your job is 
 
 **Important:** Ask ONE question at a time. Wait for each answer before asking the next. Be conversational — this should feel like a quick intake call, not a form.
 
-## Pre-step: Check shared identity
+## Step 0 — Resolve plugin config root
 
-Before asking the questions below, check whether `~/Documents/Claude/identity.md` exists. This is a shared identity file populated by cortex's `/setup-identity` command — every BrightWayAI marketplace plugin reads it.
+Per-plugin config in this marketplace lives under a user-chosen folder, recorded at `~/.claude-plugin-config-root` (a single-line text file in the user's home directory). Resolve it before doing anything else.
 
-- **If it exists and is populated:** read it. Use the values to pre-fill Question 1 (Company Name), Question 1b (Website), and any role/identity follow-ups. Skip those questions; just confirm what you read. The auto-research step still runs so the rest of the interview benefits from fresh website context.
-- **If it doesn't exist:** mention to the user:
-  > "Heads up — there's a shared identity file (`/setup-identity` in cortex) that other plugins read too, so you don't have to answer name/company/role across multiple plugin setups. Want to run `/setup-identity` first (recommended, ~2 min), or proceed with this setup inline?"
-  - If user picks "/setup-identity first," route there, then return.
-  - If "inline," proceed.
+### A — Try the pointer
 
-## Pre-step 2: Check shared voice
+Call `request_cowork_directory(~)` once if not already granted, then read `~/.claude-plugin-config-root`.
 
-After identity, check whether `~/Documents/Claude/voice.md` exists. This is a shared writing-voice file populated by cortex's `/setup-voice` command — used by every drafting plugin (bizdev-outreach, weekly-outreach, lead-engine, news-curator) so voice stays consistent.
+- **Pointer exists**: read line 1 → that's the config root path. Call `request_cowork_directory(<config-root>)` to mount it. Skip to section C.
+- **Pointer missing**: continue to section B.
 
-- **If it exists and is populated:** read it. Use those values to pre-fill voice-related questions in this interview (banned phrases, tone descriptors, sign-off). Skip those questions; just confirm.
-- **If it doesn't exist:** offer:
-  > "Want to capture your writing voice once via `/setup-voice` (in cortex)? It saves to a shared file that every drafting plugin reads — your voice stays consistent and you only update it in one place. Or proceed inline here?"
-  - If "/setup-voice first" → route there, then resume.
-  - If "inline" → proceed.
+### B — First-time bootstrap
+
+This is the user's first plugin setup of any kind. Prompt:
+
+> "First-time plugin setup. Where should I store your plugin config — identity, voice, and per-plugin settings? Pick a folder you control. Examples: `~/Documents/Claude/` (a common pick — and where cortex memory already writes if you have it installed) or `~/Documents/PluginConfig/` or any other path you prefer. The folder will hold one `identity.md`, one `voice.md`, and a `plugins/` subdirectory with one file per plugin you set up."
+
+Once the user provides the path:
+
+1. Call `request_cowork_directory(<path>)` to mount it.
+2. Create `<path>/plugins/` if it doesn't exist.
+3. Write the absolute path to `~/.claude-plugin-config-root`.
+4. Confirm: "Saved. All marketplace plugin configs will live under `<path>` from now on."
+5. **Migration**: if `~/Documents/Claude/identity.md` or `~/Documents/Claude/voice.md` exists and `<path>` is *not* `~/Documents/Claude/`, ask: "Migrate existing identity.md / voice.md into `<path>`? (Y/N)" — if yes, copy.
+6. **Pre-staged content**: if any `~/Documents/Claude/plugin-configs/*.user-context.md` files exist, offer to copy them into `<path>/plugins/`.
+
+### C — Read shared identity
+
+Read `<config-root>/identity.md` (canonical identity from cortex's `/setup-identity`).
+
+- **Exists and populated** → pre-fill Question 1 (Company Name), Question 1b (Website), and role/identity follow-ups from those values. The auto-research step still runs so the rest of the interview benefits from fresh website context.
+- **Missing** → offer to run `/setup-identity` first (recommended, ~2 min) or proceed inline.
+
+### D — Read shared voice
+
+Read `<config-root>/voice.md` (canonical voice from cortex's `/setup-voice`).
+
+- **Exists and populated** → pre-fill voice-related questions (banned phrases, tone descriptors, sign-off) from those values. Skip those questions; just confirm.
+- **Missing** → offer to run `/setup-voice` first or proceed inline.
+
+For the rest of this document, **`<config-root>`** refers to the resolved path. This plugin's config file lives at **`<config-root>/plugins/bizdev-outreach.user-context.md`**.
 
 ---
 
@@ -96,7 +118,7 @@ If the website is unreachable or doesn't have enough information, fall back to a
 ## Step 2: Write the Context File
 
 Once all answers are collected, write the user-context.md file at:
-`${CLAUDE_PLUGIN_ROOT}/skills/bizdev-outreach/references/user-context.md`
+`<config-root>/plugins/bizdev-outreach.user-context.md`
 
 Use this format:
 

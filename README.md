@@ -77,7 +77,7 @@ The core methodology is opinionated and battle-tested:
 
 ## Companion plugins
 
-The plugin works on its own, but pairs naturally with others in the [BrightWay AI marketplace](https://github.com/BrightWayAI/claude-plugins):
+The plugin works on its own, but pairs naturally with others in the [BrightWay AI marketplace](https://github.com/BrightWayAI/nucleus):
 
 - **[lead-engine](https://github.com/BrightWayAI/lead-engine)** — provides the `contact-researcher` subagent. When installed, the bizdev-outreach Phase 1 (research) delegates to that agent instead of doing inline CRM/email/web pulls. Cleaner conversation context and a more consistent dossier shape.
 - **[claude-cortex](https://github.com/BrightWayAI/claude-cortex)** — when installed, prior context about the contact (gotchas, prior commitments, relationship history) auto-surfaces during drafting.

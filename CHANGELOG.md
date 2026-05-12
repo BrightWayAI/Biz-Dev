@@ -7,7 +7,7 @@ Format follows [Keep a Changelog](https://keepachangelog.com/). Versions match `
 ## [0.2.0] — Config-root refactor + delegation features
 
 ### Changed (config-root refactor)
-- **Plugin config moved to a user-chosen folder.** Reads and writes now go to `<config-root>/plugins/bizdev-outreach.user-context.md`, where `<config-root>` is the folder the user chooses on first plugin setup (recorded at `~/.claude-plugin-config-root`). The old `${CLAUDE_PLUGIN_ROOT}/skills/bizdev-outreach/references/user-context.md` path failed silently under Cowork's read-only mount.
+- **Plugin config moved to a user-chosen folder.** Reads and writes now go to `<config-root>/plugins/bizdev-outreach.user-context.md`, where `<config-root>` is the folder the user chooses on first plugin setup (recorded at `~/Documents/.claude-plugin-config-root`). The old `${CLAUDE_PLUGIN_ROOT}/skills/bizdev-outreach/references/user-context.md` path failed silently under Cowork's read-only mount.
 - **`/setup` gets Step 0** — resolves the config root via the pointer; prompts for it on first run; reads shared identity and voice; offers to migrate legacy `~/Documents/Claude/identity.md` / `voice.md` and any pre-staged plugin configs.
 - **Operating skill updated** — `skills/bizdev-outreach/SKILL.md` reads from the new path.
 - **User-facing prompts and skill descriptions debranded** for fork-friendliness.
